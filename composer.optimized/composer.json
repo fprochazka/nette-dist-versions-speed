@@ -22,5 +22,8 @@
 	},
     "require-dev": {
         "nette/tester": "@dev"
+    },
+    "autoload": {
+    	"classmap": ["libs/nette/nette/Nette"]
     }
 }
