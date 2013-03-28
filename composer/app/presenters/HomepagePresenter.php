@@ -59,7 +59,6 @@ class HomepagePresenter extends BasePresenter
 			class_exists('Nette\Caching\Storages\MemcachedStorage') && 
 			class_exists('Nette\Caching\Storages\DevNullStorage') && 
 			interface_exists('Nette\Localization\ITranslator') && 
-			class_exists('Nette\Loaders\NetteLoader') && 
 			class_exists('Nette\Loaders\RobotLoader') && 
 			class_exists('Nette\Loaders\AutoLoader') && 
 			interface_exists('Nette\Forms\IFormRenderer') && 
