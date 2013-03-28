@@ -15,6 +15,26 @@ nginx version: nginx/0.8.54
 Apache Benchmark results for different autoloading mechanisms with and without opcode cache.
 
 
+```
+[apc]
+```
+
+```
+[opcache]
+opcache.enable = 1
+opcache.memory_consumption = 300
+opcache.interned_strings_buffer = 8
+opcache.max_accelerated_files = 8000
+opcache.fast_shutdown = 1
+opcache.enable_cli = 1
+opcache.use_cwd = 0
+opcache.validate_timestamps = 1
+```
+
+
+Fun fact: according to nginx logs, every single request returned status code 200, but `ab` disagrees.
+
+
 ## Composer clean / 36.994 ms
 
 ```
@@ -85,6 +105,44 @@ Percentage of the requests served within a certain time (ms)
   99%   2265
  100%   2808 (longest request)
 ```
+
+
+## Composer `dump-autoload --optimize` clean / 34.535 ms
+
+```
+$ ab -n 10000 -c 40 http://dev.l/testing/nette-dist-versions-speed/composer.optimized/www/
+Time taken for tests:   345.350 seconds
+Complete requests:      10000
+Failed requests:        9788 (Connect: 0, Receive: 0, Length: 9788, Exceptions: 0)
+Write errors:           0
+Total transferred:      1752406 bytes
+HTML transferred:       122406 bytes
+Requests per second:    28.96 [#/sec] (mean)
+Time per request:       1381.402 [ms] (mean)
+Time per request:       34.535 [ms] (mean, across all concurrent requests)
+Transfer rate:          4.96 [Kbytes/sec] received
+
+Connection Times (ms)
+              min  mean[+/-sd] median   max
+Connect:        0    0   0.2      0       4
+Processing:    78 1380 737.2   1487    3525
+Waiting:       78 1380 737.2   1487    3525
+Total:         78 1380 737.2   1488    3526
+
+Percentage of the requests served within a certain time (ms)
+  50%   1488
+  66%   1783
+  75%   1940
+  80%   2028
+  90%   2260
+  95%   2487
+  98%   2769
+  99%   2923
+ 100%   3526 (longest request)
+
+```
+
+
 
 ## Composer with Zend OPcache v7.0.1 / 4.780 ms
 
@@ -157,6 +215,42 @@ Percentage of the requests served within a certain time (ms)
  100%    554 (longest request)
 ```
 
+## Composer `dump-autoload --optimize` with Zend OPcache v7.0.1 / 2.518 ms
+
+```
+$ ab -n 10000 -c 40 http://dev.l/testing/nette-dist-versions-speed/composer.optimized/www/
+
+Time taken for tests:   25.176 seconds
+Complete requests:      10000
+Failed requests:        4841
+   (Connect: 0, Receive: 0, Length: 4841, Exceptions: 0)
+Write errors:           0
+Total transferred:      1729509 bytes
+HTML transferred:       99509 bytes
+Requests per second:    397.20 [#/sec] (mean)
+Time per request:       100.705 [ms] (mean)
+Time per request:       2.518 [ms] (mean, across all concurrent requests)
+Transfer rate:          67.09 [Kbytes/sec] received
+
+Connection Times (ms)
+              min  mean[+/-sd] median   max
+Connect:        0    0   0.2      0       4
+Processing:     5  100  73.8     86     543
+Waiting:        5  100  73.8     86     543
+Total:          5  101  73.8     86     543
+
+Percentage of the requests served within a certain time (ms)
+  50%     86
+  66%    111
+  75%    134
+  80%    152
+  90%    200
+  95%    247
+  98%    304
+  99%    335
+ 100%    543 (longest request)
+```
+
 
 ## Composer with APC 3.1.13 / 7.427 ms
 
@@ -227,4 +321,40 @@ Percentage of the requests served within a certain time (ms)
   98%    332
   99%    403
  100%   1822 (longest request)
+```
+
+## Composer `dump-autoload --optimize` with APC 3.1.13 / 3.782 ms
+
+```
+$ ab -n 10000 -c 40 http://dev.l/testing/nette-dist-versions-speed/composer.optimized/www/
+
+Time taken for tests:   37.824 seconds
+Complete requests:      10000
+Failed requests:        9299
+   (Connect: 0, Receive: 0, Length: 9299, Exceptions: 0)
+Write errors:           0
+Total transferred:      1733201 bytes
+HTML transferred:       103201 bytes
+Requests per second:    264.38 [#/sec] (mean)
+Time per request:       151.298 [ms] (mean)
+Time per request:       3.782 [ms] (mean, across all concurrent requests)
+Transfer rate:          44.75 [Kbytes/sec] received
+
+Connection Times (ms)
+              min  mean[+/-sd] median   max
+Connect:        0    0   0.2      0       5
+Processing:     8  151 105.9    132     732
+Waiting:        8  151 105.9    132     732
+Total:          8  151 105.9    132     732
+
+Percentage of the requests served within a certain time (ms)
+  50%    132
+  66%    174
+  75%    209
+  80%    229
+  90%    293
+  95%    362
+  98%    429
+  99%    476
+ 100%    732 (longest request)
 ```
