@@ -5,7 +5,6 @@ $ php -v
 PHP 5.4.13 (cli) (built: Mar 20 2013 14:39:24) 
 Copyright (c) 1997-2013 The PHP Group
 Zend Engine v2.4.0, Copyright (c) 1998-2013 Zend Technologies
-    with Xdebug v2.2.1, Copyright (c) 2002-2012, by Derick Rethans
 ```
 
 ```
@@ -16,240 +15,216 @@ nginx version: nginx/0.8.54
 Apache Benchmark results for different autoloading mechanisms with and without opcode cache.
 
 
-## Composer clean / `7.625 [ms]`
+## Composer clean / 36.994 ms
 
 ```
 $ ab -n 10000 -c 40 http://dev.l/testing/nette-dist-versions-speed/composer/www/
 
-Document Path:          /testing/nette-dist-versions-speed/composer/www/
-Document Length:        10 bytes
-
-Concurrency Level:      40
-Time taken for tests:   76.251 seconds
+Time taken for tests:   369.937 seconds
 Complete requests:      10000
-Failed requests:        8002 (Connect: 0, Receive: 0, Length: 8002, Exceptions: 0)
+Failed requests:        6853 (Connect: 0, Receive: 0, Length: 6853, Exceptions: 0)
 Write errors:           0
-Total transferred:      1738002 bytes
-HTML transferred:       108002 bytes
-Requests per second:    131.15 [#/sec] (mean)
-Time per request:       305.005 [ms] (mean)
-Time per request:       7.625 [ms] (mean, across all concurrent requests)
-Transfer rate:          22.26 [Kbytes/sec] received
+Total transferred:      1753118 bytes
+HTML transferred:       123118 bytes
+Requests per second:    27.03 [#/sec] (mean)
+Time per request:       1479.746 [ms] (mean)
+Time per request:       36.994 [ms] (mean, across all concurrent requests)
+Transfer rate:          4.63 [Kbytes/sec] received
 
 Connection Times (ms)
               min  mean[+/-sd] median   max
 Connect:        0    0   0.2      0       4
-Processing:    15  304 180.9    304     945
-Waiting:       15  304 181.0    304     945
-Total:         15  305 180.9    304     946
+Processing:    82 1478 802.0   1614    3822
+Waiting:       82 1478 802.0   1614    3822
+Total:         82 1479 802.0   1614    3822
 
 Percentage of the requests served within a certain time (ms)
-  50%    304
-  66%    389
-  75%    433
-  80%    463
-  90%    537
-  95%    614
-  98%    692
-  99%    750
- 100%    946 (longest request
+  50%   1614
+  66%   1932
+  75%   2103
+  80%   2200
+  90%   2456
+  95%   2652
+  98%   2871
+  99%   3018
+ 100%   3822 (longest request)
 ```
 
 
-## Minified Nette clean / `2.349 [ms]`
+## Minified Nette clean / 27.935 ms
 
 ```
 $ ab -n 10000 -c 40 http://dev.l/testing/nette-dist-versions-speed/nette.min/www/
 
-Document Path:          /testing/nette-dist-versions-speed/nette.min/www/
-Document Length:        9 bytes
-
-Concurrency Level:      40
-Time taken for tests:   23.490 seconds
+Time taken for tests:   279.349 seconds
 Complete requests:      10000
-Failed requests:        991 (Connect: 0, Receive: 0, Length: 991, Exceptions: 0)
+Failed requests:        300 (Connect: 0, Receive: 0, Length: 300, Exceptions: 0)
 Write errors:           0
-Total transferred:      1721093 bytes
-HTML transferred:       91093 bytes
-Requests per second:    425.72 [#/sec] (mean)
-Time per request:       93.959 [ms] (mean)
-Time per request:       2.349 [ms] (mean, across all concurrent requests)
-Transfer rate:          71.55 [Kbytes/sec] received
+Total transferred:      1720406 bytes
+HTML transferred:       90406 bytes
+Requests per second:    35.80 [#/sec] (mean)
+Time per request:       1117.397 [ms] (mean)
+Time per request:       27.935 [ms] (mean, across all concurrent requests)
+Transfer rate:          6.01 [Kbytes/sec] received
 
 Connection Times (ms)
               min  mean[+/-sd] median   max
-Connect:        0    0   0.2      0       3
-Processing:     4   94  55.7     84     374
-Waiting:        4   94  55.7     84     373
-Total:          4   94  55.7     84     374
+Connect:        0    0   0.1      0       2
+Processing:    63 1116 614.4   1207    2808
+Waiting:       63 1116 614.4   1207    2808
+Total:         63 1116 614.4   1207    2808
 
 Percentage of the requests served within a certain time (ms)
-  50%     84
-  66%    110
+  50%   1207
+  66%   1480
+  75%   1607
+  80%   1685
+  90%   1877
+  95%   2022
+  98%   2177
+  99%   2265
+ 100%   2808 (longest request)
+```
+
+## Composer with Zend OPcache v7.0.1 / 4.780 ms
+
+```
+$ ab -n 10000 -c 40 http://dev.l/testing/nette-dist-versions-speed/composer/www/
+
+Time taken for tests:   47.799 seconds
+Complete requests:      10000
+Failed requests:        5889 (Connect: 0, Receive: 0, Length: 5889, Exceptions: 0)
+Write errors:           0
+Total transferred:      1735775 bytes
+HTML transferred:       105775 bytes
+Requests per second:    209.21 [#/sec] (mean)
+Time per request:       191.195 [ms] (mean)
+Time per request:       4.780 [ms] (mean, across all concurrent requests)
+Transfer rate:          35.46 [Kbytes/sec] received
+
+Connection Times (ms)
+              min  mean[+/-sd] median   max
+Connect:        0    0   0.2      0       4
+Processing:     9  191 130.2    168     855
+Waiting:        9  191 130.2    168     855
+Total:          9  191 130.2    168     855
+
+Percentage of the requests served within a certain time (ms)
+  50%    168
+  66%    227
+  75%    268
+  80%    297
+  90%    374
+  95%    442
+  98%    510
+  99%    565
+ 100%    855 (longest request)
+```
+
+
+## Minified Nette with Zend OPcache v7.0.1 / 2.189 ms
+
+```
+$ ab -n 10000 -c 40 http://dev.l/testing/nette-dist-versions-speed/nette.min/www/
+
+Time taken for tests:   21.890 seconds
+Complete requests:      10000
+Failed requests:        423 (Connect: 0, Receive: 0, Length: 423, Exceptions: 0)
+Write errors:           0
+Total transferred:      1720479 bytes
+HTML transferred:       90479 bytes
+Requests per second:    456.82 [#/sec] (mean)
+Time per request:       87.562 [ms] (mean)
+Time per request:       2.189 [ms] (mean, across all concurrent requests)
+Transfer rate:          76.75 [Kbytes/sec] received
+
+Connection Times (ms)
+              min  mean[+/-sd] median   max
+Connect:        0    0   0.3      0      11
+Processing:     4   87  73.5     68     554
+Waiting:        4   87  73.5     68     554
+Total:          5   87  73.5     68     554
+
+Percentage of the requests served within a certain time (ms)
+  50%     68
+  66%    103
   75%    128
-  80%    140
-  90%    171
-  95%    199
-  98%    234
-  99%    255
- 100%    374 (longest request)
+  80%    143
+  90%    190
+  95%    226
+  98%    279
+  99%    321
+ 100%    554 (longest request)
 ```
 
-## Composer with Zend Optimizer+ v7.0.0-dev / `8.299 [ms]`
+
+## Composer with APC 3.1.13 / 7.427 ms
 
 ```
 $ ab -n 10000 -c 40 http://dev.l/testing/nette-dist-versions-speed/composer/www/
 
-Document Path:          /testing/nette-dist-versions-speed/composer/www/
-Document Length:        10 bytes
-
-Concurrency Level:      40
-Time taken for tests:   82.987 seconds
+Time taken for tests:   74.270 seconds
 Complete requests:      10000
-Failed requests:        8426 (Connect: 0, Receive: 0, Length: 8426, Exceptions: 0)
+Failed requests:        7413 (Connect: 0, Receive: 0, Length: 7413, Exceptions: 0)
 Write errors:           0
-Total transferred:      1738428 bytes
-HTML transferred:       108428 bytes
-Requests per second:    120.50 [#/sec] (mean)
-Time per request:       331.948 [ms] (mean)
-Time per request:       8.299 [ms] (mean, across all concurrent requests)
-Transfer rate:          20.46 [Kbytes/sec] received
-
-Connection Times (ms)
-              min  mean[+/-sd] median   max
-Connect:        0    0   0.2      0       4
-Processing:    15  332 185.8    326    1219
-Waiting:       15  331 185.8    326    1219
-Total:         16  332 185.8    326    1219
-
-Percentage of the requests served within a certain time (ms)
-  50%    326
-  66%    410
-  75%    461
-  80%    493
-  90%    577
-  95%    644
-  98%    730
-  99%    793
- 100%   1219 (longest request)
-```
-
-
-## Minified Nette with Zend Optimizer+ v7.0.0-dev / `2.592 [ms]`
-
-```
-$ ab -n 10000 -c 40 http://dev.l/testing/nette-dist-versions-speed/nette.min/www/
-
-Document Path:          /testing/nette-dist-versions-speed/nette.min/www/
-Document Length:        9 bytes
-
-Concurrency Level:      40
-Time taken for tests:   25.919 seconds
-Complete requests:      10000
-Failed requests:        1032 (Connect: 0, Receive: 0, Length: 1032, Exceptions: 0)
-Write errors:           0
-Total transferred:      1721167 bytes
-HTML transferred:       91167 bytes
-Requests per second:    385.81 [#/sec] (mean)
-Time per request:       103.677 [ms] (mean)
-Time per request:       2.592 [ms] (mean, across all concurrent requests)
-Transfer rate:          64.85 [Kbytes/sec] received
+Total transferred:      1737415 bytes
+HTML transferred:       107415 bytes
+Requests per second:    134.64 [#/sec] (mean)
+Time per request:       297.081 [ms] (mean)
+Time per request:       7.427 [ms] (mean, across all concurrent requests)
+Transfer rate:          22.84 [Kbytes/sec] received
 
 Connection Times (ms)
               min  mean[+/-sd] median   max
 Connect:        0    0   0.2      0       3
-Processing:     5  103  68.0     91     446
-Waiting:        5  103  67.9     91     445
-Total:          5  103  68.0     91     446
+Processing:    18  297 178.7    286    1128
+Waiting:       18  296 178.6    286    1128
+Total:         18  297 178.6    286    1128
 
 Percentage of the requests served within a certain time (ms)
-  50%     91
-  66%    126
-  75%    148
-  80%    162
-  90%    198
-  95%    230
-  98%    264
-  99%    288
- 100%    446 (longest request)
+  50%    286
+  66%    359
+  75%    413
+  80%    448
+  90%    534
+  95%    610
+  98%    707
+  99%    776
+ 100%   1128 (longest request)
 ```
 
 
-## Composer with APC 3.1.13 / `7.353 [ms]`
-
-```
-$ ab -n 10000 -c 40 http://dev.l/testing/nette-dist-versions-speed/composer/www/
-
-Document Path:          /testing/nette-dist-versions-speed/composer/www/
-Document Length:        10 bytes
-
-Concurrency Level:      40
-Time taken for tests:   73.527 seconds
-Complete requests:      10000
-Failed requests:        7816 (Connect: 0, Receive: 0, Length: 7816, Exceptions: 0)
-Write errors:           0
-Total transferred:      1737816 bytes
-HTML transferred:       107816 bytes
-Requests per second:    136.00 [#/sec] (mean)
-Time per request:       294.107 [ms] (mean)
-Time per request:       7.353 [ms] (mean, across all concurrent requests)
-Transfer rate:          23.08 [Kbytes/sec] received
-
-Connection Times (ms)
-              min  mean[+/-sd] median   max
-Connect:        0    0   0.2      0       4
-Processing:    15  294 174.4    287     948
-Waiting:       15  293 174.4    287     948
-Total:         15  294 174.4    287     948
-
-Percentage of the requests served within a certain time (ms)
-  50%    287
-  66%    362
-  75%    412
-  80%    445
-  90%    536
-  95%    596
-  98%    671
-  99%    722
- 100%    948 (longest request)
-```
-
-
-## Minified Nette with APC 3.1.13 / `2.148 [ms]`
+## Minified Nette with APC 3.1.13 / 2.508 ms
 
 ```
 $ ab -n 10000 -c 40 http://dev.l/testing/nette-dist-versions-speed/nette.min/www/
 
-Document Path:          /testing/nette-dist-versions-speed/nette.min/www/
-Document Length:        9 bytes
-
-Concurrency Level:      40
-Time taken for tests:   21.483 seconds
+Time taken for tests:   25.078 seconds
 Complete requests:      10000
-Failed requests:        967 (Connect: 0, Receive: 0, Length: 967, Exceptions: 0)
+Failed requests:        410 (Connect: 0, Receive: 0, Length: 410, Exceptions: 0)
 Write errors:           0
-Total transferred:      1721030 bytes
-HTML transferred:       91030 bytes
-Requests per second:    465.48 [#/sec] (mean)
-Time per request:       85.932 [ms] (mean)
-Time per request:       2.148 [ms] (mean, across all concurrent requests)
-Transfer rate:          78.23 [Kbytes/sec] received
+Total transferred:      1720467 bytes
+HTML transferred:       90467 bytes
+Requests per second:    398.75 [#/sec] (mean)
+Time per request:       100.313 [ms] (mean)
+Time per request:       2.508 [ms] (mean, across all concurrent requests)
+Transfer rate:          67.00 [Kbytes/sec] received
 
 Connection Times (ms)
               min  mean[+/-sd] median   max
-Connect:        0    0   0.3      0       5
-Processing:     5   86  53.3     77     353
-Waiting:        5   86  53.3     77     353
-Total:          5   86  53.3     77     353
+Connect:        0    0   0.3      0       4
+Processing:     5  100 120.7     69    1819
+Waiting:        5  100 120.7     69    1819
+Total:          5  100 120.8     69    1822
 
 Percentage of the requests served within a certain time (ms)
-  50%     77
-  66%    104
-  75%    122
-  80%    133
-  90%    160
-  95%    183
-  98%    209
-  99%    233
- 100%    353 (longest request)
+  50%     69
+  66%    109
+  75%    138
+  80%    159
+  90%    220
+  95%    268
+  98%    332
+  99%    403
+ 100%   1822 (longest request)
 ```
