@@ -16,7 +16,7 @@ nginx version: nginx/0.8.54
 Apache Benchmark results for different autoloading mechanisms with and without opcode cache.
 
 
-## Composer clean
+## Composer clean / `7.625 [ms]`
 
 ```
 $ ab -n 10000 -c 40 http://dev.l/testing/nette-dist-versions-speed/composer/www/
@@ -27,8 +27,7 @@ Document Length:        10 bytes
 Concurrency Level:      40
 Time taken for tests:   76.251 seconds
 Complete requests:      10000
-Failed requests:        8002
-   (Connect: 0, Receive: 0, Length: 8002, Exceptions: 0)
+Failed requests:        8002 (Connect: 0, Receive: 0, Length: 8002, Exceptions: 0)
 Write errors:           0
 Total transferred:      1738002 bytes
 HTML transferred:       108002 bytes
@@ -57,7 +56,7 @@ Percentage of the requests served within a certain time (ms)
 ```
 
 
-## Minified Nette clean
+## Minified Nette clean / `2.349 [ms]`
 
 ```
 $ ab -n 10000 -c 40 http://dev.l/testing/nette-dist-versions-speed/nette.min/www/
@@ -68,8 +67,7 @@ Document Length:        9 bytes
 Concurrency Level:      40
 Time taken for tests:   23.490 seconds
 Complete requests:      10000
-Failed requests:        991
-   (Connect: 0, Receive: 0, Length: 991, Exceptions: 0)
+Failed requests:        991 (Connect: 0, Receive: 0, Length: 991, Exceptions: 0)
 Write errors:           0
 Total transferred:      1721093 bytes
 HTML transferred:       91093 bytes
@@ -97,7 +95,7 @@ Percentage of the requests served within a certain time (ms)
  100%    374 (longest request)
 ```
 
-## Composer with Zend Optimizer+ v7.0.0-dev
+## Composer with Zend Optimizer+ v7.0.0-dev / `8.299 [ms]`
 
 ```
 $ ab -n 10000 -c 40 http://dev.l/testing/nette-dist-versions-speed/composer/www/
@@ -108,8 +106,7 @@ Document Length:        10 bytes
 Concurrency Level:      40
 Time taken for tests:   82.987 seconds
 Complete requests:      10000
-Failed requests:        8426
-   (Connect: 0, Receive: 0, Length: 8426, Exceptions: 0)
+Failed requests:        8426 (Connect: 0, Receive: 0, Length: 8426, Exceptions: 0)
 Write errors:           0
 Total transferred:      1738428 bytes
 HTML transferred:       108428 bytes
@@ -138,7 +135,7 @@ Percentage of the requests served within a certain time (ms)
 ```
 
 
-## Minified Nette with Zend Optimizer+ v7.0.0-dev
+## Minified Nette with Zend Optimizer+ v7.0.0-dev / `2.592 [ms]`
 
 ```
 $ ab -n 10000 -c 40 http://dev.l/testing/nette-dist-versions-speed/nette.min/www/
@@ -149,8 +146,7 @@ Document Length:        9 bytes
 Concurrency Level:      40
 Time taken for tests:   25.919 seconds
 Complete requests:      10000
-Failed requests:        1032
-   (Connect: 0, Receive: 0, Length: 1032, Exceptions: 0)
+Failed requests:        1032 (Connect: 0, Receive: 0, Length: 1032, Exceptions: 0)
 Write errors:           0
 Total transferred:      1721167 bytes
 HTML transferred:       91167 bytes
@@ -179,7 +175,7 @@ Percentage of the requests served within a certain time (ms)
 ```
 
 
-## Composer with APC 3.1.13
+## Composer with APC 3.1.13 / `7.353 [ms]`
 
 ```
 $ ab -n 10000 -c 40 http://dev.l/testing/nette-dist-versions-speed/composer/www/
@@ -190,8 +186,7 @@ Document Length:        10 bytes
 Concurrency Level:      40
 Time taken for tests:   73.527 seconds
 Complete requests:      10000
-Failed requests:        7816
-   (Connect: 0, Receive: 0, Length: 7816, Exceptions: 0)
+Failed requests:        7816 (Connect: 0, Receive: 0, Length: 7816, Exceptions: 0)
 Write errors:           0
 Total transferred:      1737816 bytes
 HTML transferred:       107816 bytes
@@ -220,7 +215,7 @@ Percentage of the requests served within a certain time (ms)
 ```
 
 
-## Minified Nette with APC 3.1.13
+## Minified Nette with APC 3.1.13 / `2.148 [ms]`
 
 ```
 $ ab -n 10000 -c 40 http://dev.l/testing/nette-dist-versions-speed/nette.min/www/
@@ -231,8 +226,7 @@ Document Length:        9 bytes
 Concurrency Level:      40
 Time taken for tests:   21.483 seconds
 Complete requests:      10000
-Failed requests:        967
-   (Connect: 0, Receive: 0, Length: 967, Exceptions: 0)
+Failed requests:        967 (Connect: 0, Receive: 0, Length: 967, Exceptions: 0)
 Write errors:           0
 Total transferred:      1721030 bytes
 HTML transferred:       91030 bytes
@@ -259,11 +253,3 @@ Percentage of the requests served within a certain time (ms)
   99%    233
  100%    353 (longest request)
 ```
-
-
-# Conclusion
-
-Packing classes to one file is always faster. 
-
-The difference is ~10ms for all classes in Nette Framework with and without ZO+, and ~5ms with APC.
-
